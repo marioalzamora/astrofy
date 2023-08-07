@@ -29,7 +29,7 @@ const { page } = Astro.props;
           <>
             <HorizontalCard
               title={post.data.title}
-              img={post.data.heroImage}
+              img={post.data.heroImage[0]}
               desc={post.data.description}
               url={"/blog/" + post.slug}
               target="_self"
