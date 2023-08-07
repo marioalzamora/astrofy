@@ -1,13 +1,13 @@
 ---
-import { BlogSchema } from "../content/config";
+import { ProjectSchema } from "../content/config";
 import BaseLayout from "./BaseLayout.astro";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 
-export interface Props extends BlogSchema {}
+export interface Props extends ProjectSchema {}
 
-const { title, description, pubDate, updatedDate, heroImage, badge } =
-  Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, badge } = Astro.props;
+console.log(Astro)
 dayjs.extend(localizedFormat);
 const displayDate = dayjs(pubDate).format("ll");
 import { Image } from "@astrojs/image/components";
@@ -16,19 +16,36 @@ import { Image } from "@astrojs/image/components";
 <BaseLayout title={title} description={description} image={heroImage}>
   <main class="md:flex md:justify-center">
     <article class="prose prose-lg max-w-[750px] prose-img:mx-auto">
-      {
-        heroImage && (
-        <Image
-            aspectRatio={"16:9"}
-            width={750}
-            height={422}
-            format="webp"
-            src={heroImage}
-            alt={title}
-            class="w-full mb-6"
-          />
-        )
-      }
+      <!-- Carousel -->
+        <div class="carousel w-full">
+          {
+            heroImage && heroImage.map((image, index)=>{
+              return <>
+                <div id={'image'+(index+1)} class="carousel-item w-full">
+                  <Image
+                    aspectRatio={"16:9"}
+                    width={750}
+                    height={422}
+                    format="jpg"
+                    src={image}
+                    alt={title}
+                    class="w-full mb-6"
+                  />
+                </div> 
+              </>
+            })
+          }
+        </div> 
+        <div class="flex justify-center w-full py-2 gap-2">
+          {
+            heroImage && heroImage.map((image, index)=>{
+              return <>
+                <a href={'#image'+(index+1)}  class="btn btn-xs">{index+1}</a> 
+              </>
+            })
+          }
+        </div>
+      <!-- End Carousel -->
       <h1 class="title my-2 text-4xl font-bold">{title}</h1>
       {pubDate && <time>{displayDate}</time>}
       <br />
@@ -42,6 +59,8 @@ import { Image } from "@astrojs/image/components";
         )
       }
       <div class="divider my-2"></div>
+      <slot>
+        <p>Soy un fallback</p>
       <slot />
     </article>
   </main>

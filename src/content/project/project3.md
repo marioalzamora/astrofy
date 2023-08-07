@@ -1,9 +1,9 @@
 ---
-title: "Demo Post 2"
-description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-pubDate: "Sep 11 2022"
-heroImage: ["/post_img.webp"]
-badge: "Demo badge"
+title: "Sony Music"
+description: "I designed special boxes featuring a built-in 4.3' LCD screen with flaps to hold CDs and books. When the box is opened, the movie trailer starts playing automatically. Additionally, users can control the playback and volume using the buttons conveniently placed below the screen. It was an exciting project that brought a dynamic and engaging touch to the movie promotion."
+pubDate: "Sep 10 2022"
+heroImage: ["/posts/sony/2.jpg"]
+badge: "Hola"
 ---
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
