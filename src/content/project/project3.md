@@ -2,7 +2,7 @@
 title: "Sony Music"
 description: "I designed special boxes featuring a built-in 4.3' LCD screen with flaps to hold CDs and books. When the box is opened, the movie trailer starts playing automatically. Additionally, users can control the playback and volume using the buttons conveniently placed below the screen. It was an exciting project that brought a dynamic and engaging touch to the movie promotion."
 pubDate: "Sep 10 2022"
-heroImage: ["/posts/sony/2.jpg"]
+heroImage: "/posts/sony/2.jpg"
 badge: "Hola"
 ---
 

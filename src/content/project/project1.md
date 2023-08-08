@@ -2,11 +2,7 @@
 title: "Clubes Ted Ed"
 description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 pubDate: "Sep 10 2022"
-heroImage: [
-    "/posts/tedex/fakecam.jpg",
-    "/posts/meliretreat/1.jpg",
-    "/posts/sony/2.jpg"
-]
+heroImage: "/posts/tedex/fakecam.jpg"
 badge: "Hola"
 ---
 

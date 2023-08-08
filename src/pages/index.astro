@@ -2,48 +2,18 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HorizontalCard from "../components/HorizontalCard.astro";
 import { getCollection } from "astro:content";
-// const res = await fetch("http://localhost:3001/api/posts")
-// const posteos = await res.json()
+import dotenv from "dotenv"
 
-// console.log(posteos)
-// import dotenv from "dotenv"
-
-// dotenv.config()
-
-// import { Client } from "@notionhq/client"
-
-// const notion = new Client({ auth: process.env.NOTION_KEY });
-
-// (async () => {
-//   const databaseId = '2993a67d-e0dd-4a99-b2b0-22eb3fb5e434';
-//   // const response = await notion.pages.retrieve({ page_id: databaseId, });
-//   const response = await notion.databases.query({
-//     database_id: databaseId,
-//     sorts: [
-//       {
-//         property: 'title',
-//         direction: 'ascending',
-//       },
-//     ],
-//   });
-//   let entries = []
-//   response.results.map((item, index)=>{
-//     item.properties.title.title.map((row) => {
-//         entries.push(row.text.content, )
-//     })
-//   })
-
-//   console.log(entries)
-
-// })();
-
+dotenv.config()
 
 const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-const projects = (await getCollection("project")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+// const projects = (await getCollection("project")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const res = await fetch("http://localhost:3001/api/posts")
+const projects = await res.json()
 
 
 const last_posts = posts.slice(0, 3);
-const last_projects = projects.slice(0, 3)
+const last_projects = projects.docs.slice(0, 3)
 ---
 
 <BaseLayout sideBarActiveItemID="home">
@@ -68,38 +38,16 @@ const last_projects = projects.slice(0, 3)
     <div class="text-3xl w-full font-bold mb-2">My last projects</div>
   </div>
 
-  <!-- <HorizontalCard
-    title="Clubes Ted Ed"
-    img="/posts/tedex/fakecam.jpg"
-    desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    url="#"
-    badge="NEW"
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="Meli Retreat"
-    img="/posts/meliretreat/1.jpg"
-    desc="Internal Communication Initiative for Mercado Libre. I created a Web-App called 'MELI Retreat' that allowed users to capture photos or generate animated GIFs in a boomerang style. They could choose from a variety of fun filters and stickers, which perfectly matched their movements thanks to face tracking technology. The content was then easily shareable on the company's Workplace platform, fostering a fun and engaging atmosphere among employees."
-    url="#"
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="Sony Music"
-    img="/posts/sony/2.jpg"
-    desc="I designed special boxes featuring a built-in 4.3' LCD screen with flaps to hold CDs and books. When the box is opened, the movie trailer starts playing automatically. Additionally, users can control the playback and volume using the buttons conveniently placed below the screen. It was an exciting project that brought a dynamic and engaging touch to the movie promotion."
-    url="#"
-    badge="FOSS"
-  /> -->
   {
     last_projects.map((project) => (
       <>
         <HorizontalCard
-          title={project.data.title}
-          img={project.data.heroImage[0]}
-          desc={project.data.description}
-          url={"/project/" + project.slug}
+          title={project.title}
+          img={project.heroImage.url}
+          desc={project.description}
+          url={'/project/'+project.slug}
           target="_self"
-          badge={project.data.badge}
+          badge={project.badge}
         />
         <div class="divider my-0" />
       </>

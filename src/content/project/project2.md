@@ -2,7 +2,7 @@
 title: "Meli Retreat"
 description: "Internal Communication Initiative for Mercado Libre. I created a Web-App called 'MELI Retreat' that allowed users to capture photos or generate animated GIFs in a boomerang style. They could choose from a variety of fun filters and stickers, which perfectly matched their movements thanks to face tracking technology. The content was then easily shareable on the company's Workplace platform, fostering a fun and engaging atmosphere among employees."
 pubDate: "Sep 10 2022"
-heroImage: ["/posts/meliretreat/1.jpg"]
+heroImage: "/posts/meliretreat/1.jpg"
 badge: "Hola"
 ---
 

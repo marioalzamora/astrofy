@@ -27,9 +27,11 @@ const projectSchema = z.object({
     title: z.string(),
     description: z.string(),
     pubDate: z.coerce.date(),
-    updatedDate: z.string().optional(),
-    heroImage: z.array(z.string()),
+    updatedAt: z.string().optional(),
+    heroImage: z.string().optional(),
+    slider: z.array(z.string()).optional(),
     badge: z.string().optional(),
+    content: z.string().optional()
 });
 
 export type BlogSchema = z.infer<typeof blogSchema>;
