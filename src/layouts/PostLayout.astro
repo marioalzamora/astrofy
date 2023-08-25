@@ -1,15 +1,120 @@
 ---
 import { ProjectSchema } from "../content/config";
 import BaseLayout from "./BaseLayout.astro";
+import { Image } from "@astrojs/image/components";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
+import escapeHtml from 'escape-html'
+import { Text, Node } from 'slate'
+import RichContent from "../components/RichContent.astro";
 
 export interface Props extends ProjectSchema {}
 
 const { title, description, pubDate, updatedAt, heroImage, badge, slider, content } = Astro.props;
 dayjs.extend(localizedFormat);
 const displayDate = dayjs(pubDate).format("ll");
-import { Image } from "@astrojs/image/components";
+
+// const serialize = (content, msg?) => content.map((node, i) => {
+//   console.log(Text)
+//   if (Text.isText(node)) {
+//     let string = escapeHtml(node.text)
+//     if (node.bold) {
+//       string = `<strong>${string}</strong>`
+//     }
+//     return string
+//   }else{
+
+//     switch (node.type) {
+//       case 'blackquote':
+//         return `<blockquote><p>${node.text}</p></blockquote>`
+//       case 'paragraph':
+//         return `<p>${node.text}</p>`
+//       case 'link':
+//         return `<a href="${escapeHtml(node.url)}">${node.text}</a>`
+//       default:
+//         return node
+//     }
+//   }
+  
+//   // const children = node.children.map(n => serialize(n)).join('')
+//   // console.log(children)
+  
+// })
+const serialize = node => {
+  if (Text.isText(node)) {
+    let string = escapeHtml(node.text)
+    if (node.bold) {
+      string = `<strong>${string}</strong>`
+    }
+    return string
+  }
+
+  const children = node.children.map(n => serialize(n)).join('')
+
+  // console.log(node)
+
+  switch (node.type) {
+    case 'h1':
+      return (
+        `<h1>${children}</h1>`
+      )
+    case 'h2':
+      return (
+      `<h2>${children}</h2>`
+      )
+    case 'h3':
+      return (
+      `<h3>${children}</h3>`
+      )
+    case 'h4':
+      return (
+      `<h4>${children}</h4>`
+      )
+    case 'h5':
+      return (
+      `<h5>${children}</h5>`
+      )
+    case 'h6':
+      return (
+      `<h6>${children}</h5>`
+      )
+    case 'ol':
+      return (
+      `<ol>${children}</ol>`
+      ) 
+    case 'ul':
+      return (
+      `<ul>${children}</ul>`
+      )
+      case 'li':
+    return (
+      `<li>${children}</li>`
+      )
+    case 'quote':
+      return `<blockquote><p>${children}</p></blockquote>`
+    case 'paragraph':
+      return `<p>${children}</p>`
+    case 'link':
+      return `<a href="${escapeHtml(node.url)}">${children}</a>`
+    case 'upload':
+      return `<Image
+                aspectRatio={"16:9"}
+                width={750}
+                height={422}
+                format="jpg"
+                src=${escapeHtml(node.value.url)}
+                alt={title}
+                class="w-full mb-6"
+            />`
+    default:
+      return `<p>${children}</p>`
+  }
+}
+
+let htmlData = ""
+content.map((node, i) => {
+  htmlData += serialize(node);
+})
 ---
 
 <BaseLayout title={title} description={description} image={heroImage}>
@@ -19,7 +124,6 @@ import { Image } from "@astrojs/image/components";
         <div class="carousel w-full">
           {
             slider && slider.map((slide, index)=>{
-              console.log(slide.image.url)
               return <>
                 <div id={'image'+(index+1)} class="carousel-item w-full">
                   <Image
@@ -59,10 +163,9 @@ import { Image } from "@astrojs/image/components";
         )
       }
       <div class="divider my-2"></div>
-      <p>{content}</p>
-      <slot>
-        <p>Soy un fallback</p>
-      <slot />
+      <div id="rich_text">
+        <RichContent html={htmlData}  />
+      </div>
     </article>
   </main>
 </BaseLayout>
