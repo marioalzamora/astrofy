@@ -15,5 +15,7 @@ export default defineConfig({
       cacheDir: "./.cache/image",
       logLevel: 'debug',
     }
-  )]
+  )],
+  server: { port: 3002 }
+  
 });

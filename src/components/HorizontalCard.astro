@@ -1,6 +1,7 @@
 ---
 const { title, img, desc, url, badge, tags, target = "_blank" } = Astro.props;
 import { Image } from "@astrojs/image/components";
+const img_url = `${process.env.S3_FULLPATH}${img}`
 ---
 
 <div
@@ -11,7 +12,7 @@ import { Image } from "@astrojs/image/components";
       {
         img && (
           <Image
-            src={img}
+            src={img_url}
             aspectRatio="16:9"
             width={750}
             format="webp"

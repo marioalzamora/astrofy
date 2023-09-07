@@ -7,6 +7,9 @@ import localizedFormat from "dayjs/plugin/localizedFormat";
 import escapeHtml from 'escape-html'
 import { Text, Node } from 'slate'
 import RichContent from "../components/RichContent.astro";
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 export interface Props extends ProjectSchema {}
 
@@ -14,32 +17,6 @@ const { title, description, pubDate, updatedAt, heroImage, badge, slider, conten
 dayjs.extend(localizedFormat);
 const displayDate = dayjs(pubDate).format("ll");
 
-// const serialize = (content, msg?) => content.map((node, i) => {
-//   console.log(Text)
-//   if (Text.isText(node)) {
-//     let string = escapeHtml(node.text)
-//     if (node.bold) {
-//       string = `<strong>${string}</strong>`
-//     }
-//     return string
-//   }else{
-
-//     switch (node.type) {
-//       case 'blackquote':
-//         return `<blockquote><p>${node.text}</p></blockquote>`
-//       case 'paragraph':
-//         return `<p>${node.text}</p>`
-//       case 'link':
-//         return `<a href="${escapeHtml(node.url)}">${node.text}</a>`
-//       default:
-//         return node
-//     }
-//   }
-  
-//   // const children = node.children.map(n => serialize(n)).join('')
-//   // console.log(children)
-  
-// })
 const serialize = node => {
   if (Text.isText(node)) {
     let string = escapeHtml(node.text)
@@ -49,10 +26,10 @@ const serialize = node => {
     return string
   }
 
+
+
   const children = node.children.map(n => serialize(n)).join('')
-
-  // console.log(node)
-
+  
   switch (node.type) {
     case 'h1':
       return (
@@ -102,7 +79,7 @@ const serialize = node => {
                 width={750}
                 height={422}
                 format="jpg"
-                src=${escapeHtml(node.value.url)}
+                src="${process.env.S3_FULLPATH}${node.value.filename}"
                 alt={title}
                 class="w-full mb-6"
             />`
@@ -115,6 +92,7 @@ let htmlData = ""
 content.map((node, i) => {
   htmlData += serialize(node);
 })
+
 ---
 
 <BaseLayout title={title} description={description} image={heroImage}>
@@ -124,6 +102,7 @@ content.map((node, i) => {
         <div class="carousel w-full">
           {
             slider && slider.map((slide, index)=>{
+              const img_url = `${process.env.S3_FULLPATH}${slide.image.filename}`
               return <>
                 <div id={'image'+(index+1)} class="carousel-item w-full">
                   <Image
@@ -131,7 +110,7 @@ content.map((node, i) => {
                     width={750}
                     height={422}
                     format="jpg"
-                    src={slide.image.url}
+                    src={img_url}
                     alt={title}
                     class="w-full mb-6"
                   />

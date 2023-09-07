@@ -5,7 +5,7 @@ import PostLayout from '../../layouts/PostLayout.astro';
 
 
 export async function getStaticPaths() {
-    const res = await fetch('http://localhost:3001/api/posts')
+    const res = await fetch('https://payload-4mgm.onrender.com/api/posts')
     const projects = await res.json()
     return projects.docs.map(entry => ( 
         { 
