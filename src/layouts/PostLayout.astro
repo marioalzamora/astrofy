@@ -17,6 +17,8 @@ const { title, description, pubDate, updatedAt, heroImage, badge, slider, conten
 dayjs.extend(localizedFormat);
 const displayDate = dayjs(pubDate).format("ll");
 
+console.log(Astro.props)
+
 const serialize = node => {
   if (Text.isText(node)) {
     let string = escapeHtml(node.text)

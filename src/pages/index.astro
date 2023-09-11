@@ -5,14 +5,14 @@ import { getCollection } from "astro:content";
 import dotenv from "dotenv"
 
 dotenv.config()
-
-const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+// const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 // const projects = (await getCollection("project")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-const res = await fetch("https://payload-4mgm.onrender.com/api/posts")
+const res = await fetch('https://payload-4mgm.onrender.com/api/posts')
 const projects = await res.json()
 
-const last_posts = posts.slice(0, 3);
+//const last_posts = posts.slice(0, 3);
 const last_projects = projects.docs.slice(0, 3)
+
 ---
 
 <BaseLayout sideBarActiveItemID="home">

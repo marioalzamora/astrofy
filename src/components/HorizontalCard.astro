@@ -1,7 +1,7 @@
 ---
 const { title, img, desc, url, badge, tags, target = "_blank" } = Astro.props;
 import { Image } from "@astrojs/image/components";
-const img_url = `${process.env.S3_FULLPATH}${img}`
+const img_url = "https://mario-portfolio-bucket.s3.amazonaws.com"+img
 ---
 
 <div
